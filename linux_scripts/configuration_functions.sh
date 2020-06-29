@@ -94,19 +94,13 @@ function setup_aliases() {
     }
 
     function configure_bashrc() {
-        rm -rf "/home/${user_name}/.bashrc"
-        cat <<\EOF >>"/home/${user_name}/.bashrc"
-
-# Aliases
-alias sudo='sudo '
-alias ssh_nas="ssh -i '.ssh/nas_key' matthew@matt-nas.miller.lan"
-alias ssh_openwrt="ssh -i '.ssh/openwrt_key' matthew@mattopenwrt.miller.lan"
-alias ssh_proxmox="ssh -i '.ssh/proxmox_key' matthew@matt-prox.miller.lan"
-alias ssh_vpn="ssh -i '.ssh/vpn_key' matthew@matt-vpn.miller.lan"
-alias ssh_pihole="ssh -i '.ssh/pihole_key' matthew@matt-pihole.miller.lan"
-alias pacman_autoremove='pacman -Rs $(pacman -Qtdq)'
-
-EOF
+        grep -q ".*# Aliases" "/home/${user_name}/.bashrc" && sed -i "s,.*# Aliases.*,# Aliases," "/home/${user_name}/.bashrc" || printf '%s\n' '# Aliases' >>"/home/${user_name}/.bashrc"
+        grep -q ".*alias sudo='sudo '" "/home/${user_name}/.bashrc" && sed -i "s,.*alias sudo='sudo '.*,alias sudo='sudo '," "/home/${user_name}/.bashrc" || printf '%s\n' "alias sudo='sudo '" >>"/home/${user_name}/.bashrc"
+        grep -q ".*alias ssh_nas=\"ssh -i '.ssh/nas_key' matthew@matt-nas.miller.lan\"" "/home/${user_name}/.bashrc" && sed -i "s,.*alias ssh_nas=\"ssh -i '.ssh/nas_key' matthew@matt-nas.miller.lan\".*,alias ssh_nas=\"ssh -i '.ssh/nas_key' matthew@matt-nas.miller.lan\"," "/home/${user_name}/.bashrc" || printf '%s\n' "alias ssh_nas=\"ssh -i '.ssh/nas_key' matthew@matt-nas.miller.lan\"" >>"/home/${user_name}/.bashrc"
+        grep -q ".*alias ssh_openwrt=\"ssh -i '.ssh/openwrt_key' matthew@mattopenwrt.miller.lan\"" "/home/${user_name}/.bashrc" && sed -i "s,.*alias ssh_openwrt=\"ssh -i '.ssh/openwrt_key' matthew@mattopenwrt.miller.lan\".*,alias ssh_openwrt=\"ssh -i '.ssh/openwrt_key' matthew@mattopenwrt.miller.lan\"," "/home/${user_name}/.bashrc" || printf '%s\n' "alias ssh_openwrt=\"ssh -i '.ssh/openwrt_key' matthew@mattopenwrt.miller.lan\"" >>"/home/${user_name}/.bashrc"
+        grep -q ".*alias ssh_proxmox=\"ssh -i '.ssh/proxmox_key' matthew@matt-prox.miller.lan\"" "/home/${user_name}/.bashrc" && sed -i "s,.*alias ssh_proxmox=\"ssh -i '.ssh/proxmox_key' matthew@matt-prox.miller.lan\".*,alias ssh_proxmox=\"ssh -i '.ssh/proxmox_key' matthew@matt-prox.miller.lan\"," "/home/${user_name}/.bashrc" || printf '%s\n' "alias ssh_proxmox=\"ssh -i '.ssh/proxmox_key' matthew@matt-prox.miller.lan\"" >>"/home/${user_name}/.bashrc"
+        grep -q ".*alias ssh_vpn=\"ssh -i '.ssh/vpn_key' matthew@matt-vpn.miller.lan\"" "/home/${user_name}/.bashrc" && sed -i "s,.*alias ssh_vpn=\"ssh -i '.ssh/vpn_key' matthew@matt-vpn.miller.lan\".*,alias ssh_vpn=\"ssh -i '.ssh/vpn_key' matthew@matt-vpn.miller.lan\"," "/home/${user_name}/.bashrc" || printf '%s\n' "alias ssh_vpn=\"ssh -i '.ssh/vpn_key' matthew@matt-vpn.miller.lan\"" >>"/home/${user_name}/.bashrc"
+        grep -q ".*alias ssh_pihole=\"ssh -i '.ssh/pihole_key' matthew@matt-pihole.miller.lan\"" "/home/${user_name}/.bashrc" && sed -i "s,.*alias ssh_pihole=\"ssh -i '.ssh/pihole_key' matthew@matt-pihole.miller.lan\".*,alias ssh_pihole=\"ssh -i '.ssh/pihole_key' matthew@matt-pihole.miller.lan\"," "/home/${user_name}/.bashrc" || printf '%s\n' "alias ssh_pihole=\"ssh -i '.ssh/pihole_key' matthew@matt-pihole.miller.lan\"" >>"/home/${user_name}/.bashrc"
     }
     # Call functions
     copy_ssh_keys
